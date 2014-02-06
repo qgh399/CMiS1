@@ -1,4 +1,4 @@
-function x = compute_diffusion(type, x, x0, params)
+function [x err] = compute_diffusion(type, x, x0, params)
 % COMPUTE_DIFFUSION: This function solves a implicity time integration of
 % the diffusion term of the velocity field.
 %
@@ -59,7 +59,5 @@ beta  = - (params.dt*params.viscosity)/(params.dx*params.dx);
 alpha = 1 - 2*(beta+gamma);
 
 [x, err] = gauss_seidel_solver(type, alpha, beta, gamma, x, x0, params);
-figure(1)
-semilogy(1:length(err), err)
 
 end

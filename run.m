@@ -44,7 +44,16 @@ while T_wanted>0
     
     params.dt = cfl_dt;
     
-    [u v smoke] = compute_fractional_step(u,v,smoke,params);
+    [u v smoke diff_err_u diff_err_v press_err1 press_err2] = compute_fractional_step(u,v,smoke,params);
+    
+    figure(1)
+    semilogy(1:length(diff_err_u), diff_err_u)
+    figure(2)
+    semilogy(1:length(diff_err_v), diff_err_v)
+    figure(3)
+    semilogy(1:length(press_err1), press_err1)
+    figure(4)
+    semilogy(1:length(press_err2), press_err2)
 
     dt_wanted = dt_wanted - cfl_dt;
   end

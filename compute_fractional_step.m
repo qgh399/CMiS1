@@ -1,4 +1,4 @@
-function [u v smoke] =  compute_fractional_step(u, v, smoke, params)
+function [u v smoke diff_err_u diff_err_v press_err1 press_err2] =  compute_fractional_step(u, v, smoke, params)
 % COMPUTE_FRACTIONAL_STEP: Solves an Navier Stokes equation iteration
 % for velocity and smoke field.
 % INPUT:  
@@ -28,11 +28,12 @@ u = u + fu*params.dt;
 %--- Third step: Integrate diffusion term ---------------------------------
 u0 = u;
 v0 = v;
-u  = compute_diffusion(1, u, u0, params);
-v  = compute_diffusion(2, v, v0, params);
+[u, diff_err_u]  = compute_diffusion(1, u, u0, params);
+
+[v, diff_err_v]  = compute_diffusion(2, v, v0, params);
 
 %--- Intermediate Step: extra projection for better accuracy --------------
-[u v] = compute_pressure_projection(u,v,params);
+[u, v, press_err1] = compute_pressure_projection(u,v,params);
 
 %--- Fourth Step: Integrate advection term --------------------------------
 u0 = u;
@@ -41,7 +42,7 @@ u  = compute_advection(1,u,u0,v0,params);
 v  = compute_advection(2,v,u0,v0,params);
 
 %--- Fifth Step: Finaly projection step to make fluid divergence free -----
-[u v] = compute_pressure_projection(u,v,params);
+[u, v, press_err2] = compute_pressure_projection(u,v,params);
 
 %--- Second phase, we time integrate our trace (smoke) density field ------
 
