@@ -1,4 +1,4 @@
-function [x] = gauss_seidel_solver(type, alpha, beta, gamma, x, b, params)
+function [x, err] = gauss_seidel_solver(type, alpha, beta, gamma, x, b, params)
 % GAUSS_SEIDEL_SOLVER: This function uses a Gauss Seidel solver to solve
 % the linear system A x = b given by the coefficients alpha, beta, gamma,
 % and b.
@@ -42,8 +42,5 @@ for iter=1:params.max_iter
   x_old = x;
       
 end
-
-figure(1)
-semilogy(1:length(err), err)
 
 end

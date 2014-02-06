@@ -105,7 +105,9 @@ gamma  = 1/(params.dy*params.dy);
 alpha  = -2*(beta + gamma);
 
 p = zeros(params.I,params.J);
-p = gauss_seidel_solver(0, alpha, beta, gamma, p, b, params);
+[p, err] = gauss_seidel_solver(0, alpha, beta, gamma, p, b, params);
+figure(2)
+semilogy(1:length(err), err)
 
 %--- Make velocity field divegence free by adding pressure forces ---------
 % Basically we are using Helmholtz-Hodge decomposition. To compute the

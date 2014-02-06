@@ -58,6 +58,8 @@ gamma = - (params.dt*params.viscosity)/(params.dy*params.dy);
 beta  = - (params.dt*params.viscosity)/(params.dx*params.dx);
 alpha = 1 - 2*(beta+gamma);
 
-x = gauss_seidel_solver(type, alpha, beta, gamma, x, x0, params);
+[x, err] = gauss_seidel_solver(type, alpha, beta, gamma, x, x0, params);
+figure(1)
+semilogy(1:length(err), err)
 
 end
