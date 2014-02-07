@@ -1,4 +1,4 @@
-function [x] = gauss_seidel_solver(type, alpha, beta, gamma, x, b, params)
+function [x] = gauss_seidel_solver(type, alpha, beta, gamma, x, b, params, iters)
 % GAUSS_SEIDEL_SOLVER: This function uses a Gauss Seidel solver to solve
 % the linear system A x = b given by the coefficients alpha, beta, gamma,
 % and b.
@@ -21,7 +21,7 @@ x = set_boundary_conditions(type, x, params);
 i = 2:params.I-1;
 j = 2:params.J-1;
 
-for iter=1:params.max_iter
+for iter=1:iters
     
   x(i,j) = (...
     b(i,j)...
