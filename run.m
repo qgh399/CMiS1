@@ -12,11 +12,6 @@ smoke  = zeros(params.I, params.J);
 
 T_wanted = params.T;
 frame    = 1;
-
-iter = 1;
-diff_err = zeros(1, params.max_iter - 1);
-press_err = zeros(1, params.max_iter - 1);
-
 while T_wanted>0
   
   dt_wanted = 1/ params.fps;
@@ -49,12 +44,7 @@ while T_wanted>0
     
     params.dt = cfl_dt;
     
-    [u, v, smoke, diff_err_u, diff_err_v, press_err1, press_err2] = ...
-        compute_fractional_step(u,v,smoke,params);
-    
-    diff_err = diff_err + (diff_err_u + diff_err_v)/2;
-    press_err = press_err + (press_err1 + press_err2)/2;
-    iter = iter + 1;
+    [u v smoke] = compute_fractional_step(u,v,smoke,params);
 
     dt_wanted = dt_wanted - cfl_dt;
   end

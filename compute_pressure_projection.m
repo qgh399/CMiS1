@@ -1,4 +1,4 @@
-function [u, v, err] = compute_pressure_projection(u, v, params)
+function [u, v] = compute_pressure_projection(u, v, params)
 % COMPUTE_PRESSURE_PROJECTION: This function compute the pressure
 % projection that will make the input velocity field divergence free
 % upon return.
@@ -105,7 +105,7 @@ gamma  = 1/(params.dy*params.dy);
 alpha  = -2*(beta + gamma);
 
 p = zeros(params.I,params.J);
-[p, err] = gauss_seidel_solver(0, alpha, beta, gamma, p, b, params);
+p = gauss_seidel_solver(0, alpha, beta, gamma, p, b, params);
 
 %--- Make velocity field divegence free by adding pressure forces ---------
 % Basically we are using Helmholtz-Hodge decomposition. To compute the
