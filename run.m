@@ -10,8 +10,6 @@ u      = zeros(params.I, params.J);
 v      = zeros(params.I, params.J);
 smoke  = zeros(params.I, params.J);
 
-iters = 1;
-
 T_wanted = params.T;
 frame    = 1;
 while T_wanted>0
@@ -46,9 +44,7 @@ while T_wanted>0
     
     params.dt = cfl_dt;
     
-    [u v smoke elapsed] = compute_fractional_step(u,v,smoke,params);
-    total_elapsed(iters,:) = elapsed;
-    iters = iters + 1;
+    [u v smoke] = compute_fractional_step(u,v,smoke,params);
 
     dt_wanted = dt_wanted - cfl_dt;
   end
